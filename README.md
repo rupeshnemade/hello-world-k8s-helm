@@ -8,7 +8,7 @@ The service connects to a  MongoDB to retrieve the welcome message to return.
 
 ### Install ##
 
-1. Install [Minikube](https://kubernetes.io/docs/getting-started-guides/minikube/) (or any other Kubernetes cluster)
+1. Install [Minikube](https://kubernetes.io/docs/getting-started-guides/minikube/)
 2. Install [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) command line tool for Kubernetes
 3. Install [Helm](https://docs.helm.sh/using_helm/), a package manager for Kubernetes based applications
 
