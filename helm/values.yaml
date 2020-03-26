@@ -24,7 +24,6 @@ app:
 mongodb:
   name: mongodb
   replicaCount: 1
-  # If running on AWS choose LoadBalancer as service Type, for minikube use NodePort
   type: ClusterIP
   
 ingress:
