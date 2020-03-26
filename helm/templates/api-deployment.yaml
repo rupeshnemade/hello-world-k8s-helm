@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app.name }}
+  namespace:  {{ .Release.Namespace }}
+  labels:
+    app: {{ .Values.app.name }}
+spec:
+  replicas: {{ .Values.app.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.name }}
+    spec:
+      containers:
+        - image: {{ .Values.images.appImage }}
+          imagePullPolicy: Always
+          name: {{ .Values.app.name }}
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MONGO_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.app.name }}-config
+                  key: MONGO_URL
+            - name: MONGO_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.name }}
+                  key: MONGO_USERNAME
+            - name: MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.name }}
+                  key: MONGO_PASSWORD
+            - name: MONGO_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.name }}
+                  key: MONGO_DATABASE
+          resources:
+              {{- if .Values.app.resources.requests.enabled }}
+              requests:
+                memory: {{ .Values.app.resources.requests.memory }}
+                cpu: {{ .Values.app.resources.requests.cpu }}
+              {{- end }}
+              {{- if .Values.app.resources.limits.enabled }}
+              limits:
+                memory: {{ .Values.app.resources.limits.memory }}
+                cpu: {{ .Values.app.resources.limits.cpu }}
+              {{- end }}

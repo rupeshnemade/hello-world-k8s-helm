@@ -1,0 +1,39 @@
+# Default values for hello-world-mongo.
+
+images:
+  appImage: nemadern/helloapi:latest
+  mongoImage: nemadern/mongodb:latest
+
+# configuraiton for the NodeJS application  
+app:
+  name: helloapi
+  replicaCount: 1
+  # If running on AWS choose LoadBalancer as service Type, for minikube use NodePort
+  type: NodePort
+  
+  resources:
+    requests:
+      enabled: true
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      enabled: true
+      cpu: 200m
+      memory: 256Mi
+
+mongodb:
+  name: mongodb
+  replicaCount: 1
+  # If running on AWS choose LoadBalancer as service Type, for minikube use NodePort
+  type: ClusterIP
+  
+ingress:
+  name: hello-service
+  path: /
+  externalPort: 3000
+  
+namespace:
+  name: hello
+ 
+secrets:
+  name: mongodb
