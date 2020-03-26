@@ -32,8 +32,5 @@ ingress:
   path: /
   externalPort: 3000
   
-namespace:
-  name: hello
- 
 secrets:
   name: mongodb
